@@ -48,8 +48,10 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 		Optional<UserProfile> user = userProfileRepository.findById(userId);
 
-		if (user.isPresent())
+		if (user.isPresent()) {
+			userProfileRepository.delete(user.get());
 			return new ApiResponse<>(HttpStatus.OK.value(), "User Deleted Successful");
+		}
 
 		return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), "User Not Found");
 	}
